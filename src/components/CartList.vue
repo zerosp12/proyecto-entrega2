@@ -2,14 +2,7 @@
   <div>
     <div v-if="isLogin == false">
       <div class="alert alert-danger" role="alert">
-        <i class="fas fa-exclamation-circle"></i> Debes ingresar en tu ciemta
-        para ver tu carrito. Haz click
-        <strong
-          ><a @click="showComponent(2)" href="#" class="alert-link"
-            >aquí</a
-          ></strong
-        >
-        para iniciar sesión...
+        <i class="fas fa-exclamation-circle"></i> Debes ingresar en tu cuenta para ver tu carrito. Haz click <strong><a @click="showComponent(2)" href="#" class="alert-link">aquí</a></strong> para iniciar sesión...
       </div>
     </div>
     <div v-else-if="cartList.length == 0">
