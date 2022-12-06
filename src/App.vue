@@ -127,9 +127,7 @@ export default {
     cerrarMensaje() {
         this.MostrarMensaje = false
     },
-
     verMensaje(info) {
-      console.log(info)
         this.MostrarMensaje = true
         this.MensajeTipo = info[1]
         this.MensajeTexto = info[0]
