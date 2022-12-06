@@ -130,7 +130,7 @@ export default {
 
     verMensaje(info) {
       console.log(info)
-        this.MostrarMensaje = 1
+        this.MostrarMensaje = true
         this.MensajeTipo = info[1]
         this.MensajeTexto = info[0]
     },

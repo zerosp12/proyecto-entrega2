@@ -1,12 +1,12 @@
 <template>
   <div v-if="MostrarMensaje">
-    <div style="width: 100%; height: 100%; display: block; position: fixed; top: 0; left: 0; background-color: rgba(0,0,0,0.5); padding: 20px;">
-        <div v-if="Tipo == 1" class="alert alert-success alert-dismissible" role="alert" style="top: 100px">
-            <strong>EXITO!</strong> {{ Mensaje }}
+    <div class="back-message">
+        <div v-if="Tipo == 1" class="alert alert-success alert-dismissible" role="alert">
+            <strong>EXITO!</strong><br>{{ Mensaje }}
             <button type="button" class="btn-close" @click="$emit('cerrarMensaje')"></button>
         </div>
-        <div v-else-if="Tipo == 2" class="alert alert-danger alert-dismissible" role="alert" style="top: 100px">
-            <strong>ERROR!</strong> {{ Mensaje }}
+        <div v-else-if="Tipo == 2" class="alert alert-danger alert-dismissible" role="alert">
+            <strong>ERROR!</strong><br>{{ Mensaje }}
             <button type="button" class="btn-close" @click="$emit('cerrarMensaje')"></button>
         </div>
     </div>
@@ -32,4 +32,26 @@ export default {
 };
 </script>
 <style scoped>
+.back-message {
+  width: 100%; 
+  height: 100%; 
+  display: block;
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  background-color: rgba(0,0,0,0.5); 
+  padding: 20px;
+}
+
+.alert {
+  top: 100px;
+  max-width: 600px;
+  margin: auto;
+}
+
+@media (max-width: 576px) {
+  .alert {
+    width: 90%;
+  }
+}
 </style>
