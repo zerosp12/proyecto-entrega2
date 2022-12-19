@@ -41,31 +41,37 @@ export default {
   },
   methods: {
     addProductToCart(event) {
-      this.botonActivo = true;
-      let URL_CARRITO = "https://639a60473a5fbccb5265ab59.mockapi.io/carrito";
 
-      var target = event.currentTarget;
-      target.innerHTML = '<i class="fas fa-check mr-2"></i> <b>Agregado!</b>';
+      if(JSON.parse(localStorage.isLogin)) {
+        
+        this.botonActivo = true;
+        let URL_CARRITO = "https://639a60473a5fbccb5265ab59.mockapi.io/carrito";
 
-      const productoEnviar = {
-        id_producto: this.producto.id,
-        precio: this.producto.precio,
-        cantidad: 1,
-        usuario: localStorage.clientID,
-      };
+        var target = event.currentTarget;
+        target.innerHTML = '<i class="fas fa-check mr-2"></i> <b>Agregado!</b>';
 
-      axios
-        .post(URL_CARRITO, JSON.parse(JSON.stringify(productoEnviar)))
-        .then((resultado) => {
-          console.log(resultado);
-          if (resultado.status == 201) {
-            setTimeout(() => {
-              target.innerHTML =
-                '<i class="fas fa-shopping-cart mr-2"></i> Agregar al Carrito';
-              this.botonActivo = false;
-            }, 300);
-          }
-        });
+        const productoEnviar = {
+          id_producto: this.producto.id,
+          precio: this.producto.precio,
+          cantidad: 1,
+          usuario: localStorage.clientID,
+        };
+
+        axios
+          .post(URL_CARRITO, JSON.parse(JSON.stringify(productoEnviar)))
+          .then((resultado) => {
+            
+            if (resultado.status == 201) {
+              setTimeout(() => {
+                target.innerHTML =
+                  '<i class="fas fa-shopping-cart mr-2"></i> Agregar al Carrito';
+                this.botonActivo = false;
+              }, 300);
+            }
+          });
+      } else {
+        this.$router.push('/login')
+      }
     },
   },
 };

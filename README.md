@@ -1,5 +1,11 @@
 # proyecto-entrega2
 
+##
+## Usuarios: 
+## x / 1234
+## ethel / 1234
+##
+
 ## Project setup
 ```
 npm install
