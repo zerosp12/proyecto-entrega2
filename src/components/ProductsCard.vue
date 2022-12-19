@@ -4,11 +4,12 @@
       <img :src="producto.image" class="card-img-top" />
       <div class="card-body">
         <h6 class="card-title fw-bold">{{ producto.nombre }}</h6>
-        <p class="card-text">{{ producto.descripcion }}</p>
+        <p class="card-text" v-html="obtenerDescripcionConSalto"></p>
         <h3 class="pt-3 pb-2">$ {{ producto.precio }}</h3>
         <hr />
         <button
-          class="btn btn-warning btn-sm"
+          class="btn fw-bold btn-warning"
+          :disabled="chequearBoton"
           @click="addProductToCart($event)"
         >
           <i class="fas fa-shopping-cart mr-2"></i> Agregar al Carrito
@@ -23,14 +24,24 @@ import axios from "axios";
 export default {
   name: "ProductCard",
   data: () => {
-    return {};
+    return {
+      botonActivo: false
+    };
   },
   props: {
     producto: Object,
   },
-  created() {},
+  computed: {
+    chequearBoton() {
+      return this.botonActivo
+    },
+    obtenerDescripcionConSalto() {
+      return this.producto.descripcion.replace(/\n/g, "<br />")
+    }
+  },
   methods: {
     addProductToCart(event) {
+      this.botonActivo = true
       let URL_CARRITO = "https://639a60473a5fbccb5265ab59.mockapi.io/carrito"
 
       var target = event.currentTarget;
@@ -50,13 +61,14 @@ export default {
           if (resultado.status == 201) {
             setTimeout(() => {
               target.innerHTML = '<i class="fas fa-shopping-cart mr-2"></i> Agregar al Carrito';
+              this.botonActivo = false
               }, 300);
+              
           }
         });
-
-      
     },
   },
+ 
 };
 </script>
 

@@ -17,17 +17,10 @@
 <script>
 export default {
   name: "ModalMessage",
-
   props: {
     MostrarMensaje: Boolean,
     Mensaje: String,
     Tipo: Number,
-  },
-  data() {
-    return {
-    };
-  },
-  methods: {
   }
 };
 </script>
