@@ -23,7 +23,7 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/carrito">
+                <router-link class="nav-link" :to="linkCarrito">
                   <i class="fas fa-shopping-cart mr-2"></i> Carrito
                 </router-link>
               </li>
@@ -69,21 +69,30 @@ export default {
       isLogin: false,
       clientName: "",
       imagePath: "",
-      userPrivileges: 0
+      userPrivileges: 0,
+      linkCarrito: '/carrito'
     }
   },
   created() {
   
+    this.linkCarrito = '/carrito'
+
     if(localStorage.isLogin !== undefined) {
+      
       this.isLogin = JSON.parse(localStorage.isLogin) //Sino toma String (Gracias Google)
-      this.clientName = localStorage.clientName
-      this.imagePath = localStorage.avatarPath
-      this.userPrivileges = localStorage.userPrivileges
-    } else {
-      localStorage.isLogin = false
-      localStorage.clientName = ""
-      localStorage.avatarPath = ""
-      localStorage.userPrivileges = 0
+
+      if(this.isLogin) {
+        this.clientName = localStorage.clientName
+        this.imagePath = localStorage.avatarPath
+        this.userPrivileges = localStorage.userPrivileges
+        this.linkCarrito = '/carrito/' + localStorage.clientID
+      } else {
+        localStorage.isLogin = false
+        localStorage.clientName = ""
+        localStorage.avatarPath = ""
+        localStorage.userPrivileges = 0
+        localStorage.clientID = ""
+      }
     }
   },
 }

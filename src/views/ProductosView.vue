@@ -1,14 +1,8 @@
 <template>
   <div>
-    <h1 class="pt-4"><i class="fas fa-gift mr-2"></i> Lista de Productos</h1>
-    <p>Bienvenido a nuestra lista de productos, selecciona lo que desees agregar al carrito y luego finaliza tu compra!
-      <br>Recuerda que debes ingresar a tu cuenta para poder utilizar el carrito.
-    </p>
-    <hr class="mt-4 mb-4" />
-    <div v-if="showLoading" class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Cargando Productos...</span>
-      </div>
+    <ModuleTitle moduloTitulo="Lista de Productos" moduloTexto="" moduloIcono="fas fa-gift" />
+    <div v-if="showLoading">
+      <LoadingSpinner />
     </div>
     <div v-else class="row">
       <ProductsCard v-for="(product, index) in productList" :key="index" :product="product" />
@@ -18,12 +12,17 @@
 
 <script>
 import ProductsCard from '@/components/ProductsCard.vue'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
+import ModuleTitle from '@/components/ModuleTitle.vue'
+
 import axios from 'axios'
 
 export default {
   name: 'ProductosView',
   components: {
-    ProductsCard
+    ProductsCard,
+    LoadingSpinner,
+    ModuleTitle
   },
 
   data() {

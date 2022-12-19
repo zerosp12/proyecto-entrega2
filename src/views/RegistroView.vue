@@ -1,7 +1,6 @@
 <template>
   <div class="form-content">
-    <h1 class="pt-4">Registra tu Cuenta</h1>
-    <hr class="mt-4 mb-4" />
+    <ModuleTitle moduloTitulo="Registra tu Cuenta" moduloIcono="fas fa-user-plus" />
     <vue-form :state="regform" @submit.prevent="enviarRegistro()">
       <!--Nombre y Apellido-->
       <validate auto-label class="form-group required-field mb-3">
@@ -118,13 +117,17 @@
   </div>
 </template>
 <script>
+import ModuleTitle from '@/components/ModuleTitle.vue'
+
 import axios from "axios"
 import { MixinForms } from "@/mixins/mixin.forms.js"
 
 export default {
   name: "RegistroView",
+  components: {
+    ModuleTitle
+  },
   mixins: [MixinForms],
-  components: {},
   data() {
     return {
       //Form Check
@@ -181,7 +184,7 @@ export default {
 </script>
 <style scoped>
 .form-content {
-  max-width: 25rem;
+  max-width: 30rem;
 }
 
 .chkbox-label {

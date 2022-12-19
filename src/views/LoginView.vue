@@ -1,7 +1,6 @@
 <template>
   <div class="form-content">
-    <h1 class="pt-4">Tu Cuenta</h1>
-    <hr class="mt-4 mb-4" />
+    <ModuleTitle moduloTitulo="Tu Cuenta" moduloIcono="fas fa-user" />
     <vue-form :state="loginform" @submit.prevent="enviarLogin()">
       <validate auto-label class="form-group required-field mb-3">
         <label class="form-label">Usuario</label>
@@ -48,11 +47,15 @@
   </div>
 </template>
 <script>
+import ModuleTitle from '@/components/ModuleTitle.vue'
 import axios from "axios"
 import { MixinForms } from "@/mixins/mixin.forms.js"
 
 export default {
   name: "LoginView",
+  components: {
+    ModuleTitle
+  },
   mixins: [MixinForms],
   data() {
     return {
@@ -89,10 +92,12 @@ export default {
 
       if (infoUsuario) {
         localStorage.isLogin = Boolean(true)
+        localStorage.clientID = infoUsuario.id
         localStorage.clientName = infoUsuario.nombre
         localStorage.avatarPath = infoUsuario.avatar
         localStorage.userPrivileges = Number(infoUsuario.privilegios)
         window.location.href = "/"
+        //this.$router.push('/')
       }
     },
   },
@@ -100,6 +105,6 @@ export default {
 </script>
 <style scoped>
 .form-content {
-  max-width: 25rem;
+  max-width: 30rem;
 }
 </style>

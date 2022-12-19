@@ -13,7 +13,12 @@ const routes = [
   {
     path: '/carrito',
     name: 'carrito',
-    component: () => import(/* webpackChunkName: "about" */ '../views/CartView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue'),
+  },
+  {
+    path: '/carrito/:id',
+    name: 'carrito_id',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CartView.vue'),
   },
   {
     path: '/login',
@@ -46,7 +51,7 @@ const routes = [
     ]
   }
 
-  
+
 ]
 
 const router = new VueRouter({
