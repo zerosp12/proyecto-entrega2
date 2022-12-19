@@ -1,17 +1,17 @@
 <template>
   <div>
-    <ModuleTitle moduloTitulo="Lista de Productos" moduloTexto="" moduloIcono="fas fa-gift" />
+    <ModuleTitle moduloTitulo="Pedí desde tu casa" moduloTexto="- Agrega los productos al carrito compras y luego finaliza el pedído!" moduloIcono="fas fa-motorcycle" />
     <div v-if="showLoading">
       <LoadingSpinner />
     </div>
     <div v-else class="row">
-      <ProductsCard v-for="(product, index) in productList" :key="index" :producto="product" />
+      <TarjetaProductos v-for="(product, index) in productList" :key="index" :producto="product" />
     </div>
   </div>
 </template>
 
 <script>
-import ProductsCard from '@/components/ProductsCard.vue'
+import TarjetaProductos from '@/components/TarjetaProductos.vue'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import ModuleTitle from '@/components/ModuleTitle.vue'
 
@@ -20,7 +20,7 @@ import axios from 'axios'
 export default {
   name: 'ProductosView',
   components: {
-    ProductsCard,
+    TarjetaProductos,
     LoadingSpinner,
     ModuleTitle
   },

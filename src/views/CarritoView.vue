@@ -1,14 +1,13 @@
 <template>
   <div>
-    <div v-if="clientID == ''">
-      {{ this.$route.params.id }}
-      <h3>Test</h3>
+    <h1 class="pt-4">
+      <i class="fas fa-shopping-cart mr-2"></i> Carrito de Compras
+    </h1>
+    <hr class="mt-4 mb-4" />
+    <div v-if="showLoading">
+      <LoadingSpinner />
     </div>
     <div v-else>
-      <h1 class="pt-4">
-        <i class="fas fa-shopping-cart mr-2"></i> Carrito de Compras
-      </h1>
-      <hr class="mt-4 mb-4" />
       <div v-if="cartList.length == 0">
         <div class="alert alert-warning" role="alert">
           <i class="fas fa-exclamation-circle"></i> El carrito de compras se
@@ -70,19 +69,22 @@
 
 <script>
 import axios from "axios";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 let URL_PRODUCTOS = "https://639a60473a5fbccb5265ab59.mockapi.io/productos";
 let URL_CARRITO = "https://639a60473a5fbccb5265ab59.mockapi.io/carrito";
 
 export default {
   name: "CartView.vue",
-
+  components: {
+    LoadingSpinner,
+  },
   data() {
     return {
       cartList: [],
       productList: [],
       clientID: "",
-      showLoading: false,
+      showLoading: true,
     };
   },
   created() {
@@ -162,7 +164,7 @@ export default {
 
       return precio;
     },
-  }
+  },
 };
 </script>
 <style scoped>

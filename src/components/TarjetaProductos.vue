@@ -25,7 +25,7 @@ export default {
   name: "ProductCard",
   data: () => {
     return {
-      botonActivo: false
+      botonActivo: false,
     };
   },
   props: {
@@ -33,16 +33,16 @@ export default {
   },
   computed: {
     chequearBoton() {
-      return this.botonActivo
+      return this.botonActivo;
     },
     obtenerDescripcionConSalto() {
-      return this.producto.descripcion.replace(/\n/g, "<br />")
-    }
+      return this.producto.descripcion.replace(/\n/g, "<br />");
+    },
   },
   methods: {
     addProductToCart(event) {
-      this.botonActivo = true
-      let URL_CARRITO = "https://639a60473a5fbccb5265ab59.mockapi.io/carrito"
+      this.botonActivo = true;
+      let URL_CARRITO = "https://639a60473a5fbccb5265ab59.mockapi.io/carrito";
 
       var target = event.currentTarget;
       target.innerHTML = '<i class="fas fa-check mr-2"></i> <b>Agregado!</b>';
@@ -51,24 +51,23 @@ export default {
         id_producto: this.producto.id,
         precio: this.producto.precio,
         cantidad: 1,
-        usuario: localStorage.clientID
-      }
+        usuario: localStorage.clientID,
+      };
 
       axios
-      .post(URL_CARRITO, JSON.parse(JSON.stringify(productoEnviar)))
-       .then(resultado => {
-        console.log(resultado)
+        .post(URL_CARRITO, JSON.parse(JSON.stringify(productoEnviar)))
+        .then((resultado) => {
+          console.log(resultado);
           if (resultado.status == 201) {
             setTimeout(() => {
-              target.innerHTML = '<i class="fas fa-shopping-cart mr-2"></i> Agregar al Carrito';
-              this.botonActivo = false
-              }, 300);
-              
+              target.innerHTML =
+                '<i class="fas fa-shopping-cart mr-2"></i> Agregar al Carrito';
+              this.botonActivo = false;
+            }, 300);
           }
         });
     },
   },
- 
 };
 </script>
 
