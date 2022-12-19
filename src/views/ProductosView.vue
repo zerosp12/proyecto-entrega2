@@ -5,7 +5,7 @@
       <LoadingSpinner />
     </div>
     <div v-else class="row">
-      <ProductsCard v-for="(product, index) in productList" :key="index" :product="product" />
+      <ProductsCard v-for="(product, index) in productList" :key="index" :producto="product" />
     </div>
   </div>
 </template>
@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       showLoading: true,
-      productList: []
+      productList: [],
+      cartList: []
     };
   },
 
@@ -42,8 +43,6 @@ export default {
     })
     .catch((err) => console.log(err.response.data))
   },
-  methods: {
-  }
 }
 </script>
 <style scoped>
