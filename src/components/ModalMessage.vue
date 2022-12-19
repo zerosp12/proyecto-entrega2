@@ -41,6 +41,7 @@ export default {
   left: 0; 
   background-color: rgba(0,0,0,0.5); 
   padding: 20px;
+  z-index: 1100;
 }
 
 .alert {

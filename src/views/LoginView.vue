@@ -1,5 +1,6 @@
 <template>
   <div class="form-content">
+    <ModalMessage :Mensaje="mensajeTexto" :Tipo="mensajeTipo" :MostrarMensaje="mensajeMostrar" @cerrarMensaje="cerrarMensaje" />
     <ModuleTitle moduloTitulo="Tu Cuenta" moduloIcono="fas fa-user" />
     <vue-form :state="loginform" @submit.prevent="enviarLogin()">
       <validate auto-label class="form-group required-field mb-3">
@@ -47,16 +48,18 @@
   </div>
 </template>
 <script>
-import ModuleTitle from '@/components/ModuleTitle.vue'
 import axios from "axios"
+import ModuleTitle from '@/components/ModuleTitle.vue'
+
 import { MixinForms } from "@/mixins/mixin.forms.js"
+import { MixinMensajes } from "@/mixins/mixin.messages.js"
 
 export default {
   name: "LoginView",
   components: {
-    ModuleTitle
+    ModuleTitle,
   },
-  mixins: [MixinForms],
+  mixins: [MixinForms, MixinMensajes],
   data() {
     return {
       usersList: {},
@@ -83,6 +86,7 @@ export default {
       .finally(fin => console.log(fin))
   },
   methods: {
+
     enviarLogin() {
 
       let infoUsuario =  this.usersList.find(
@@ -96,8 +100,11 @@ export default {
         localStorage.clientName = infoUsuario.nombre
         localStorage.avatarPath = infoUsuario.avatar
         localStorage.userPrivileges = Number(infoUsuario.privilegios)
+        
         window.location.href = "/"
         //this.$router.push('/')
+      } else {
+        this.crearMensaje(2, 'Los datos ingresados no son correctos')
       }
     },
   },

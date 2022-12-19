@@ -1,10 +1,9 @@
 <template>
   <div>
     <h3 class="mb-4">> Administrar Productos</h3>
+    <router-link to="/gestion/productos/nuevo" class="btn btn-success mb-4">Nuevo Producto</router-link>
     <div v-if="showLoading" class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Cargando Productos...</span>
-      </div>
+      <LoadingSpinner />
     </div>
     <div v-else class="table table-bordered text-center">
       <table class="table">
@@ -24,7 +23,7 @@
               <div class="text-overflow-check">{{ producto.descripcion }}</div>
             </td>
             <td>
-              <button type="button btn-sm" class="btn btn-sm btn-warning" style="margin-right: 5px">
+              <button type="button btn-sm" class="btn btn-sm btn-warning" @click="$router.push(`/gestion/productos/editar/${producto.id}`)" style="margin-right: 5px">
                 <i class="fas fa-pen"></i>
               </button>
               <button type="button btn-sm" class="btn btn-sm btn-danger" @click="deleteItem(producto.id)">
@@ -38,11 +37,16 @@
   </div>
 </template>
 <script>
+let URL_PRODUCTOS = `https://639a60473a5fbccb5265ab59.mockapi.io/productos/`
+
 import axios from "axios"
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 
 export default {
-  name: "ManagementProductos.vue",
-
+  name: "ProductosLista.vue",
+  components: {
+    LoadingSpinner
+  },
   data() {
     return {
       showLoading: true,
@@ -51,8 +55,6 @@ export default {
   },
 
   created() {
-    let URL_PRODUCTOS = "https://639a60473a5fbccb5265ab59.mockapi.io/productos"
-
     axios
       .get(URL_PRODUCTOS)
       .then(productos => {
@@ -68,10 +70,20 @@ export default {
     deleteItem(index) {
       var answer = window.confirm("Deseas Borrar el siguente Producto?");
       if (answer) {
-        console.log(index)
-      }
-      else {
-        console.log(index)
+        axios
+          .delete(`${URL_PRODUCTOS}/${index}`)
+          .then(resp => {
+            
+            if(resp.status == 200) {
+
+              let product = this.productList.findIndex(x => x.id == index)
+
+              if(product >= 0) {
+                this.productList.splice(product, 1)
+              }
+            }
+          })
+          .catch(err => console.log(err.response.data))
       }
     }
   },

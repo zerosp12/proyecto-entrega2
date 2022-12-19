@@ -1,6 +1,15 @@
 <template>
   <div class="form-content">
-    <ModuleTitle moduloTitulo="Registra tu Cuenta" moduloIcono="fas fa-user-plus" />
+    <ModalMessage
+      :Mensaje="mensajeTexto"
+      :Tipo="mensajeTipo"
+      :MostrarMensaje="mensajeMostrar"
+      @cerrarMensaje="cerrarMensaje"
+    />
+    <ModuleTitle
+      moduloTitulo="Registra tu Cuenta"
+      moduloIcono="fas fa-user-plus"
+    />
     <vue-form :state="regform" @submit.prevent="enviarRegistro()">
       <!--Nombre y Apellido-->
       <validate auto-label class="form-group required-field mb-3">
@@ -117,19 +126,21 @@
   </div>
 </template>
 <script>
-import ModuleTitle from '@/components/ModuleTitle.vue'
-
 import axios from "axios"
+import ModuleTitle from "@/components/ModuleTitle.vue"
 import { MixinForms } from "@/mixins/mixin.forms.js"
+import { MixinMensajes } from "@/mixins/mixin.messages.js"
 
 export default {
   name: "RegistroView",
   components: {
-    ModuleTitle
+    ModuleTitle,
   },
-  mixins: [MixinForms],
+  mixins: [MixinForms, MixinMensajes],
   data() {
     return {
+      usuarios: [],
+
       //Form Check
       regform: {},
       model: {
@@ -142,13 +153,31 @@ export default {
       },
     }
   },
+  created() {
+    let URL_USUARIOS = "https://639a60473a5fbccb5265ab59.mockapi.io/usuarios"
+
+    //Traemos los usuarios
+    axios.get(URL_USUARIOS).then(result => {
+      this.usuarios = result.data
+    })
+  },
   methods: {
     enviarRegistro() {
       if (this.regform.$valid) {
+        if (this.usuarios.find(x => x.usuario == this.model.nombre)) {
+          this.crearMensaje(2, "El usuario ya se encuentra en uso")
+          return
+        }
+
+        if (this.usuarios.find(x => x.email == this.model.email)) {
+          this.crearMensaje(2, "El email ya se encuentra en uso")
+          return
+        }
 
         let URL_USUARIOS =
           "https://639a60473a5fbccb5265ab59.mockapi.io/usuarios"
 
+        //Registro
         let usuario = {
           nombre: this.model.nombre,
           usuario: this.model.usuario,
@@ -160,9 +189,6 @@ export default {
         axios
           .post(URL_USUARIOS, usuario)
           .then(resultado => {
-            
-            console.log(resultado.status)
-
             if (resultado.status == 201) {
               this.model = {
                 nombre: "",
@@ -172,7 +198,19 @@ export default {
                 email: "",
                 privilegios: 0,
               }
-              this.resetState()
+
+              this.crearMensaje(1, "La cuenta fue creada exitosamente")
+              this.regform._reset()
+              
+              setTimeout(() => {
+                this.$router.push("/login")
+              }, 1000)
+              
+            } else {
+              this.crearMensaje(
+                2,
+                "Se produjo un error al intentar crear la cuenta"
+              )
             }
           })
           .catch(err => console.log(err.response.data))
