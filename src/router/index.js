@@ -42,19 +42,23 @@ const routes = [
     children: [
       {
         path: '/gestion/usuarios',
-        component: () => import(/* webpackChunkName: "about" */ '../views/management/UsuariosLista.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../views/gestion/UsuariosLista.vue'),
+      },
+      {
+        path: '/gestion/usuarios/editar/:id',
+        component: () => import(/* webpackChunkName: "about" */ '../views/gestion/UsuariosEditar.vue'),
       },
       {
         path: '/gestion/productos',
-        component: () => import(/* webpackChunkName: "about" */ '../views/management/ProductosLista.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../views/gestion/ProductosLista.vue'),
       },
       {
         path: '/gestion/productos/nuevo',
-        component: () => import(/* webpackChunkName: "about" */ '../views/management/ProductoNuevo.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../views/gestion/ProductoNuevo.vue'),
       },
       {
         path: '/gestion/productos/editar/:id',
-        component: () => import(/* webpackChunkName: "about" */ '../views/management/ProductoEditar.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../views/gestion/ProductoEditar.vue'),
       }
     ]
   }

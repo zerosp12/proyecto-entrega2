@@ -11,7 +11,7 @@
       <div v-if="cartList.length == 0">
         <div class="alert alert-warning" role="alert">
           <i class="fas fa-exclamation-circle"></i> El carrito de compras se
-          encuentra vacío.
+          encuentra vacío...
         </div>
       </div>
       <div v-else class="table-responsive table-bordered">
@@ -56,11 +56,19 @@
           </tbody>
           <tbody>
             <tr>
-              <td colspan="5" class="value-total">
+              <td colspan="4" class="value-total">
                 Precio Total: $ <span>{{ sumaTotal }}</span>
               </td>
             </tr>
           </tbody>
+          <tbody>
+            <tr>
+              <td colspan="4" class="value-total p-2">
+                <button type="button" class="btn btn-success" @click="finalizarPedido()"><i class="fas fa-shopping-cart"></i> Finalizar Pedido</button>
+              </td>
+            </tr>
+          </tbody>
+              
         </table>
       </div>
     </div>
@@ -153,6 +161,9 @@ export default {
         });
       }
     },
+    finalizarPedido() {
+
+    }
   },
   computed: {
     sumaTotal() {

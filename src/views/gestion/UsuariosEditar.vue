@@ -1,12 +1,12 @@
 <template>
     <div>
-        
+        Proximamente! :D
     </div>
 </template>
 
 <script>
 export default {
-    name: 'UsuariosLista',
+    name: 'UsuariosEditar',
 
     data() {
         return {
