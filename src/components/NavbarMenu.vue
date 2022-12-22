@@ -34,7 +34,7 @@
               </li>
               <li v-else>
                 <router-link class="nav-link" to="/login">
-                  <i class="fas fa-user mr-2"></i> Tu Cuenta
+                  <i class="fas fa-user mr-2"></i> Ingresar!
                 </router-link>
               </li>
               <li v-if="!isLogin">
