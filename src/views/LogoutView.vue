@@ -13,8 +13,7 @@ export default ({
     },
     created() {
         localStorage.isLogin = Boolean(false)
-        window.location.href = '/productos'
-        console.log(localStorage)
+        window.location.href = '/'
     }
 })
 </script>

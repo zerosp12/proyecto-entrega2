@@ -17,12 +17,12 @@
           </button>
           <div class="collapse navbar-collapse" id="collapseMenu">
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-              <li class="nav-item">
-                <router-link class="nav-link" to="/">
+              <li v-if="isLogin && userPrivileges == 0" class="nav-item">
+                <router-link class="nav-link" to="/productos">
                   <i class="fas fa-gift mr-2"></i> Productos
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li v-if="isLogin && userPrivileges == 0" class="nav-item">
                 <router-link class="nav-link" :to="linkCarrito">
                   <i class="fas fa-shopping-cart mr-2"></i> Carrito
                 </router-link>

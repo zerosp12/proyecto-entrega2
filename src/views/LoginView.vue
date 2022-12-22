@@ -1,6 +1,11 @@
 <template>
   <div class="form-content">
-    <ModalMessage :Mensaje="mensajeTexto" :Tipo="mensajeTipo" :MostrarMensaje="mensajeMostrar" @cerrarMensaje="cerrarMensaje" />
+    <ModalMessage
+      :Mensaje="mensajeTexto"
+      :Tipo="mensajeTipo"
+      :MostrarMensaje="mensajeMostrar"
+      @cerrarMensaje="cerrarMensaje"
+    />
     <ModuleTitle moduloTitulo="Tu Cuenta" moduloIcono="fas fa-user" />
     <vue-form :state="loginform" @submit.prevent="enviarLogin()">
       <validate auto-label class="form-group required-field mb-3">
@@ -48,11 +53,11 @@
   </div>
 </template>
 <script>
-import axios from "axios"
-import ModuleTitle from '@/components/ModuleTitle.vue'
+import axios from "axios";
+import ModuleTitle from "@/components/ModuleTitle.vue";
 
-import { MixinForms } from "@/mixins/mixin.forms.js"
-import { MixinMensajes } from "@/mixins/mixin.messages.js"
+import { MixinForms } from "@/mixins/mixin.forms.js";
+import { MixinMensajes } from "@/mixins/mixin.messages.js";
 
 export default {
   name: "LoginView",
@@ -70,45 +75,48 @@ export default {
         username: "",
         password: "",
       },
-    }
+    };
   },
   created() {
-    let URL_USUARIOS = "https://639a60473a5fbccb5265ab59.mockapi.io/usuarios"
+    let URL_USUARIOS = "https://639a60473a5fbccb5265ab59.mockapi.io/usuarios";
 
     axios
       .get(URL_USUARIOS)
-      .then(usuarios => {
-        
-        localStorage.usersList = JSON.stringify(usuarios.data)
-        this.usersList = JSON.parse(localStorage.usersList)
+      .then((usuarios) => {
+        localStorage.usersList = JSON.stringify(usuarios.data);
+        this.usersList = JSON.parse(localStorage.usersList);
       })
-      .catch(err => console.log(err.response.data))
-      .finally(fin => console.log(fin))
+      .catch((err) => console.log(err.response.data))
+      .finally((fin) => console.log(fin));
   },
   methods: {
-
     enviarLogin() {
-
-      let infoUsuario =  this.usersList.find(
-          x =>
-            x.usuario == this.model.username &&
-            x.password == this.model.password)
+      let infoUsuario = this.usersList.find(
+        (x) =>
+          x.usuario == this.model.username && x.password == this.model.password
+      );
 
       if (infoUsuario) {
-        localStorage.isLogin = Boolean(true)
-        localStorage.clientID = infoUsuario.id
-        localStorage.clientName = infoUsuario.nombre
-        localStorage.avatarPath = infoUsuario.avatar
-        localStorage.userPrivileges = Number(infoUsuario.privilegios)
+        localStorage.isLogin = Boolean(true);
+        localStorage.clientID = infoUsuario.id;
+        localStorage.clientName = infoUsuario.nombre;
+        localStorage.avatarPath = infoUsuario.avatar;
+        localStorage.userPrivileges = Number(infoUsuario.privilegios);
+
+        if (localStorage.userPrivileges == 1) {
+          this.$router.push('gestion')
+        } else {
+          this.$router.push('productos')
+        }
         
-        window.location.href = "/"
-        //this.$router.push('/')
+        setTimeout(()=>{ this.$router.go(0) }, 100)
+
       } else {
-        this.crearMensaje(2, 'Los datos ingresados no son correctos')
+        this.crearMensaje(2, "Los datos ingresados no son correctos");
       }
     },
   },
-}
+};
 </script>
 <style scoped>
 .form-content {

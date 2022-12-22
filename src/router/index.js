@@ -1,14 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import ProductosView from '../views/ProductosView.vue'
+import LoginView from '../views/LoginView.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
+    name: 'inicio',
+    component: LoginView
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView
+  },
+  {
+    path: '/productos',
     name: 'productos',
-    component: ProductosView
+    component: () => import(/* webpackChunkName: "about" */ '../views/ProductosView.vue')
   },
   {
     path: '/carrito',
@@ -19,11 +29,6 @@ const routes = [
     path: '/carrito/:id',
     name: 'carrito_id',
     component: () => import(/* webpackChunkName: "about" */ '../views/CarritoView.vue'),
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/LoginView.vue')
   },
   {
     path: '/logout',
