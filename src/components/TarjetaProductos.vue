@@ -1,14 +1,16 @@
 <template>
-  <div class="col-3 mb-4">
+  <div class="col-lg-3 py-2">
     <div class="card h-100 text-center">
       <img :src="producto.image" class="card-img-top" />
       <div class="card-body">
         <h6 class="card-title fw-bold">{{ producto.nombre }}</h6>
         <p class="card-text" v-html="obtenerDescripcionConSalto"></p>
         <h3 class="pt-3 pb-2">$ {{ producto.precio }}</h3>
-        <hr />
+      </div>
+      <div class="card-footer">
+        <hr>
         <button
-          class="btn fw-bold btn-warning"
+          class="btn fw-bold btn-sm btn-warning py-2"
           :disabled="chequearBoton"
           @click="addProductToCart($event)"
         >
@@ -41,9 +43,7 @@ export default {
   },
   methods: {
     addProductToCart(event) {
-
-      if(JSON.parse(localStorage.isLogin)) {
-        
+      if (JSON.parse(localStorage.isLogin)) {
         this.botonActivo = true;
         let URL_CARRITO = "https://639a60473a5fbccb5265ab59.mockapi.io/carrito";
 
@@ -60,7 +60,6 @@ export default {
         axios
           .post(URL_CARRITO, JSON.parse(JSON.stringify(productoEnviar)))
           .then((resultado) => {
-            
             if (resultado.status == 201) {
               setTimeout(() => {
                 target.innerHTML =
@@ -70,23 +69,17 @@ export default {
             }
           });
       } else {
-        this.$router.push('/login')
+        this.$router.push("/login");
       }
     },
   },
 };
 </script>
-
 <style scoped>
-.card {
-  border: 0px !important;
-  padding: 0px 0px 20px 0px;
-  box-shadow: 0px 0px 6px 2px #eaeaea;
-  transition: box-shadow 0.3s ease-in-out;
-}
 
-.card:hover {
-  cursor: pointer;
-  box-shadow: 0px 0px 6px 2px #bbb;
+.card-footer {
+  background-color: white !important;
+  border-top: 0px;
+  padding-bottom: 20px;
 }
 </style>

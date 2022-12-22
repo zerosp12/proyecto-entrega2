@@ -45,37 +45,19 @@ export default {
   },
 }
 </script>
+
 <style scoped>
 .card {
-    width: 95%;
-    margin: 1% !important;
+  border: 0px !important;
+  padding: 0px 0px 20px 0px;
+  box-shadow: 0px 0px 6px 2px #eaeaea;
+  transition: box-shadow 0.3s ease-in-out;
+  width: 95%;
+  margin: 1% !important;
 }
 
-@media (min-width: 576px) {
-    .card {
-        width: 47%;
-        margin: 5px 1.5% !important;
-    }
-}
-
-@media (min-width: 768px) {
-    .card {
-        width: 31.333%;
-        margin: 5px 1% !important;
-    }
-}
-
-@media (min-width: 992px) {
-    .card {
-        width: 23%;
-        margin: 5px 1% !important;
-    }
-}
-
-@media (min-width: 1200px) {
-    .card {
-        width: 19%;
-        margin: 5px .5% !important;
-    }
+.card:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 6px 2px #bbb;
 }
 </style>
