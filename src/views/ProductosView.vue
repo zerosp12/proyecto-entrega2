@@ -47,17 +47,4 @@ export default {
 </script>
 
 <style scoped>
-.card {
-  border: 0px !important;
-  padding: 0px 0px 20px 0px;
-  box-shadow: 0px 0px 6px 2px #eaeaea;
-  transition: box-shadow 0.3s ease-in-out;
-  width: 95%;
-  margin: 1% !important;
-}
-
-.card:hover {
-  cursor: pointer;
-  box-shadow: 0px 0px 6px 2px #bbb;
-}
 </style>

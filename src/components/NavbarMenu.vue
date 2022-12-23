@@ -1,9 +1,9 @@
 <template>
   <div>
     <div>
-      <nav class="navbar navbar-expand-sm navbar-light">
+      <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand" href="#">> NUEVA Tienda Online</a>
+          <a class="navbar-brand" href="#">> Delivery Online</a>
           <button
             class="navbar-toggler d-lg-none text-white"
             type="button"
@@ -19,12 +19,13 @@
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
               <li v-if="isLogin && userPrivileges == 0" class="nav-item">
                 <router-link class="nav-link" to="/productos">
-                  <i class="fas fa-gift mr-2"></i> Productos
+                  <i class="fas fa-motorcycle mr-2"></i> Delivery
                 </router-link>
               </li>
               <li v-if="isLogin && userPrivileges == 0" class="nav-item">
                 <router-link class="nav-link" :to="linkCarrito">
-                  <i class="fas fa-shopping-cart mr-2"></i> Carrito
+                  <i class="fas fa-shopping-cart mr-2"></i> 
+                  <span class="badge text-bg-warning">{{ carritoCount }}</span>
                 </router-link>
               </li>
               <li v-if="isLogin" class="nav-item">
@@ -62,9 +63,11 @@
 </template>
 
 <script>
+import { MixinCarrito } from "@/mixins/mixin.carrito.js";
+
 export default {
   name: "NavbarMenu",
-
+  mixins: [MixinCarrito],
   data() {
     return {
       isLogin: false,
@@ -72,10 +75,13 @@ export default {
       imagePath: "",
       userPrivileges: 0,
       linkCarrito: "/carrito",
+      carritoCount: 0,
     };
   },
   created() {
     this.linkCarrito = "/carrito";
+
+    this.obtenerCarritoCount();
 
     if (localStorage.isLogin !== undefined) {
       this.isLogin = JSON.parse(localStorage.isLogin); //Sino toma String (Gracias Google)
@@ -84,7 +90,8 @@ export default {
         this.clientName = localStorage.clientName;
         this.imagePath = localStorage.avatarPath;
         this.userPrivileges = localStorage.userPrivileges;
-        this.linkCarrito = "/carrito/" + localStorage.clientID;
+        this.linkCarrito = `/carrito/${localStorage.clientID}`;
+        this.carritoCount = localStorage.carritoCount;
       } else {
         localStorage.isLogin = false;
         localStorage.clientName = "";
@@ -93,6 +100,14 @@ export default {
         localStorage.clientID = "";
       }
     }
+  },
+  methods: {
+    obtenerCarritoCount() {
+      setTimeout(() => {
+        this.carritoCount = localStorage.carritoCount;
+        this.obtenerCarritoCount();
+      }, 100);
+    },
   },
 };
 </script>
