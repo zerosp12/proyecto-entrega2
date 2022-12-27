@@ -81,7 +81,7 @@ export default {
   created() {
     this.linkCarrito = "/carrito";
 
-    this.obtenerCarritoCount();
+    setInterval(this.obtenerCarritoCount, 300)
 
     if (localStorage.isLogin !== undefined) {
       this.isLogin = JSON.parse(localStorage.isLogin); //Sino toma String (Gracias Google)
@@ -103,10 +103,7 @@ export default {
   },
   methods: {
     obtenerCarritoCount() {
-      setTimeout(() => {
         this.carritoCount = localStorage.carritoCount;
-        this.obtenerCarritoCount();
-      }, 100);
     },
   },
 };
